@@ -39,6 +39,17 @@ Path: /todo
 
 Objeto To Do en formato JSON
 
+```
+{
+    id: int,
+    title: string,
+    placeId: int,
+    description: string,
+    deadline: string (ISO UTC date),
+    priority: int
+}
+```
+
 ##### Status Codes
 
 | Valor     | Descripción                     |
@@ -59,7 +70,7 @@ Objeto To Do en formato JSON
 | title         | Body          | Título del To Do                                                                   | Sí        | "Comprar pan"         |
 | placeId       | Body          | Id del lugar                                                                       | Sí        | 7                     |
 | description   | Body          | Descripción del To Do                                                              | No        | "Pan lactal Bimbo"    |
-| deadline      | Body          | Fecha límite en formato ISO UTC                                                    | No        | 2020-04-22T11:12:45Z  |
+| deadline      | Body          | Fecha límite, en un string con formato ISO UTC                                     | No        | 2020-04-22T11:12:45Z  |
 | priority      | Body          | Prioridad del To Do. Valor numérico de 1 (menos prioritario) a 5 (más prioritario) | No        | 3                     |
 
 
@@ -117,3 +128,127 @@ Objeto To Do en formato JSON
 | 404       | El id no existe                 |
 | 500       | Error interno                   |
 
+### Lugares
+
+Path: /places
+
+#### GET
+
+`/place/{id}`
+
+##### Parámetros
+
+| Nombre        | Localización | Descripción       | Requerido     | Ejemplo       |
+| ------------- | -            | ----------------- | -             | ------------- |
+| id            | Path         | Id del Lugar      | Sí            | 5             |
+
+##### Retorna
+
+Objeto lugar en formato JSON
+
+```
+{
+    id: string,
+    name: string
+}
+```
+
+##### Status Codes
+
+| Valor     | Descripción                     |
+| --------- | -----------------               |
+| 200       | Operación correcta              |
+| 400       | Id incorrecto o con mal formato |
+| 404       | Id inexistente                  |
+| 500       | Error interno                   |
+
+#### POST
+
+`/place`
+
+##### Parámetros
+
+| Nombre        | Localización  | Descripción                                                                        | Requerido | Ejemplo               |
+| ------------- | -             | -----------------                                                                  | -         | -------------         |
+| name          | Body          | Nombre del lugar                                                                   | Sí        | "Casa"                |
+
+
+##### Status Codes
+
+| Valor     | Descripción                     |
+| --------- | -----------------               |
+| 201       | Operación correcta              |
+| 400       | Parámetros incorrectos          |
+| 500       | Error interno                   |
+
+#### PUT
+
+`/place/{id}`
+
+##### Parámetros
+
+| Nombre        | Localización  | Descripción                                                                        | Requerido | Ejemplo               |
+| ------------- | -             | -----------------                                                                  | -         | -------------         |
+| id            | Path          | Id del Lugar                                                                       | Sí        | 5                     |
+| name          | Body          | Nombre del Lugar                                                                   | Sí        | "Casa"                |
+
+
+##### Status Codes
+
+| Valor     | Descripción                     |
+| --------- | -----------------               |
+| 204       | Operación correcta              |
+| 400       | Parámetros incorrectos          |
+| 404       | El id no existe                 |
+| 500       | Error interno                   |
+
+#### DELETE
+
+`/place/{id}`
+
+##### Parámetros body
+
+| Nombre        | Localización  | Descripción       | Requerido | Ejemplo               |
+| ------------- | -             | ----------------- | -         | -------------         |
+| id            | Path          | Id del Lugar      | Sí        | 5                     |
+
+
+
+##### Status Codes
+
+| Valor     | Descripción                     |
+| --------- | -----------------               |
+| 204       | Operación correcta              |
+| 400       | Parámetros incorrectos          |
+| 404       | El id no existe                 |
+| 500       | Error interno                   |
+
+#### GET To Dos by Place
+
+`/place/{id}/todos`
+
+##### Parámetros
+
+| Nombre        | Localización | Descripción       | Requerido     | Ejemplo       |
+| ------------- | -            | ----------------- | -             | ------------- |
+| id            | Path         | Id del Lugar      | Sí            | 5             |
+
+##### Retorna
+
+Objeto lugar con lista de To Dos en formato JSON
+
+```
+{
+    id: int,
+    name: string,
+    todos: [
+        {
+            id: int,
+            title: string,
+            description: string,
+            deadline: string (ISO UTC date),
+            priority: int
+        }
+    ]
+}
+```
