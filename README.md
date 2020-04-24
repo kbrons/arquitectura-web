@@ -229,18 +229,18 @@ Objeto lugar en formato JSON
 
 ##### Parámetros
 
-| Nombre        | Localización | Descripción       | Requerido     | Ejemplo       |
-| ------------- | -            | ----------------- | -             | ------------- |
-| id            | Path         | Id del Lugar      | Sí            | 5             |
+| Nombre        | Localización | Descripción                                    | Requerido     | Ejemplo       |
+| ------------- | -            | -----------------                              | -             | ------------- |
+| id            | Path         | Id del Lugar                                   | Sí            | 5             |
+| limit         | Path         | Cantidad de elementos a traer                  | No            | 20            |
+| offset        | Path         | Cantidad de elementos a partir del cual traer  | No            | 40            |
 
 ##### Retorna
 
-Objeto lugar con lista de To Dos en formato JSON
+Lista de To Dos en formato JSON
 
 ```
 {
-    id: int,
-    name: string,
     todos: [
         {
             id: int,
@@ -249,6 +249,8 @@ Objeto lugar con lista de To Dos en formato JSON
             deadline: string (ISO UTC date),
             priority: int
         }
-    ]
+    ],
+    limit: int (same as requested),
+    offset: int (same as requested)
 }
 ```
