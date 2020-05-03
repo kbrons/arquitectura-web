@@ -134,6 +134,34 @@ Path: /places
 
 #### GET
 
+`/place`
+
+##### Parámetros
+
+| Nombre        | Localización | Descripción                                    | Requerido     | Ejemplo       |
+| ------------- | -            | -----------------                              | -             | ------------- |
+| limit         | Path         | Cantidad de elementos a traer                  | No            | 20            |
+| offset        | Path         | Cantidad de elementos a partir del cual traer  | No            | 40            |
+
+##### Retorna
+
+Lista de Places en formato JSON
+
+```
+{
+    places: [
+        {
+            id: string,
+            name: string
+        }
+    ],
+    limit: int (same as requested),
+    offset: int (same as requested)
+}
+```
+
+#### GET
+
 `/place/{id}`
 
 ##### Parámetros
