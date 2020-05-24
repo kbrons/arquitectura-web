@@ -5,12 +5,12 @@ module.exports = class BaseService {
 	}
 
 	create({params}) {
-		const entity = this._entityClass(params);
+		const entity = new this._entityClass(params);
 		this._repository.create({entity});
 	}
 
 	update({params}) {
-		const entity = this._entityClass(params);
+		const entity = new this._entityClass(params);
 		this._repository.update({entity});
 	}
 
