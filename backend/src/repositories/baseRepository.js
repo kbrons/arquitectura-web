@@ -42,4 +42,10 @@ module.exports = class BaseRepository {
     getAll() {
         return Object.values(this._db);
     }
+
+    query({entity = {}}) {
+        return Object.values(this._db)
+                     .filter((dbEntity) => Object.keys(entity)
+                                                 .every((key) => entity[key] === dbEntity[key]));
+    }
 }
