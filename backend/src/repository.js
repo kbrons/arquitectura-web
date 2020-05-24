@@ -1,28 +1,45 @@
-const Redis = require('ioredis');
-
-module.exports = class RequestRepository {
-    constructor({port, host, password, db}) {
-        this._redis = new Redis({port, host, password, db, lazyConnect: true});
+module.exports = class BaseRepository {
+    constructor({}) {
+        this._db = {};
     }
 
-    async create(request) {
-        try {
-            await this._redis.zadd(request.key, request.time, request.time);
+    create({entity}) {
+        if(!entity) {
+            throw new Error('Entity is required');
         }
-        catch (error) {
-            console.error(error);
-            throw new Error('There was an error creating the request log');
-        }
+        
+        const key = (Object.keys(this._db)[-1] || -1) + 1;
+        entity.id = key;
+        this._db[key] = entity;
     }
 
-    async getCountForLastInterval({key, intervalOffset}) {
-        const now = Date.now();
-        try {
-            return await this._redis.zcount(key, now - intervalOffset, now);
+    update({entity}) {
+        if(!entity) {
+            throw new Error('Entity is required');
         }
-        catch (error) {
-            console.error(error);
-            throw new Error(`There was an error getting the request count for ${key} in ${intervalOffset}`);
+        if(!entity.id) {
+            throw new Error('Entity must have an id');
         }
+        if(!this._db[entity.id]) {
+            throw new Error('Entity doesn\'t exist');
+        }
+
+        this._db[entity.id] = entity;
+    }
+
+    delete({id}) {
+        if(!id) {
+            throw new Error('Id is required');
+        }
+
+        delete this._db[id]
+    }
+
+    getSingle({id}) {
+        return this._db[id];
+    }
+
+    getAll() {
+        return Object.values(this._db);
     }
 }
