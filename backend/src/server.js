@@ -1,18 +1,18 @@
 const PlaceRepository = require('./repositories/placeRepository');
 const PlaceService = require('./services/placeService');
 const PlaceController = require('./controllers/placeController');
-const TodoRepository = require('./repositories/TodoRepository');
-const TodoService = require('./services/TodoService');
-const TodoController = require('./controllers/TodoController');
+const TodoRepository = require('./repositories/todoRepository');
+const TodoService = require('./services/todoService');
+const TodoController = require('./controllers/todoController');
 const express = require('express');
 const { buildHandlers: buildBaseHandlers } = require('./handlers/baseHandlers');
 const { buildHandlers: buildTodoHandlers } = require('./handlers/todoHandlers');
 
 
-const placeRepository = new PlaceRepository();
+const placeRepository = new PlaceRepository({});
 const placeService = new PlaceService({ repository: placeRepository });
 const placeController = new PlaceController({ service: placeService });
-const todoRepository = new TodoRepository();
+const todoRepository = new TodoRepository({});
 const todoService = new TodoService({ repository: todoRepository });
 const todoController = new TodoController({ service: todoService });
 

@@ -43,7 +43,7 @@ const buildHandlers = ({ controller }) => {
 		}
 	};
 
-	const delete = (request, response, next) => {
+	const deleteHandler = (request, response, next) => {
 		try {
 			controller.delete({ id: request.params.id });
 			response.status(204).send();
@@ -59,7 +59,7 @@ const buildHandlers = ({ controller }) => {
 		getAllPaginated,
 		create,
 		update,
-		delete
+		delete: deleteHandler
 	};
 }
 
