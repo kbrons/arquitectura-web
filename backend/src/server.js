@@ -28,6 +28,7 @@ server.put('/todo', todoHandlers.update);
 server.post('/todo', todoHandlers.create);
 server.delete('/todo/:id', todoHandlers.delete);
 server.get('/place/:id/todos', todoHandlers.getByPlace);
+server.get('/place', placeHandlers.getAllPaginated);
 server.get('/place/:id', placeHandlers.getSingle);
 server.put('/place', placeHandlers.update);
 server.post('/place', placeHandlers.create);
