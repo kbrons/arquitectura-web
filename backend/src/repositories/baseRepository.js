@@ -39,13 +39,10 @@ module.exports = class BaseRepository {
         return this._db[id];
     }
 
-    getAll() {
-        return Object.values(this._db);
-    }
-
-    query({entity = {}}) {
+    queryPaginated({entity = {}, offset = 0, limit = 20}) {
         return Object.values(this._db)
                      .filter((dbEntity) => Object.keys(entity)
-                                                 .every((key) => entity[key] === dbEntity[key]));
+                                                 .every((key) => entity[key] === dbEntity[key]))
+                     .slice(offset, offset + limit);
     }
 }
