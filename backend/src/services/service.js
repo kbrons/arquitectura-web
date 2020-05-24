@@ -1,4 +1,4 @@
-const Request = require('./model/request');
+const Request = require('../model/request');
 
 module.exports = class RequestService{ 
 	constructor({interval, repository}) {
