@@ -5,6 +5,8 @@ const TodoRepository = require('./repositories/todoRepository');
 const TodoService = require('./services/todoService');
 const TodoController = require('./controllers/todoController');
 const express = require('express');
+const ValueError = require('./utils/valueError');
+const NotExistsError = require('./utils/notExistsError');
 const { buildHandlers: buildBaseHandlers } = require('./handlers/baseHandlers');
 const { buildHandlers: buildTodoHandlers } = require('./handlers/todoHandlers');
 
@@ -33,6 +35,22 @@ server.get('/place/:id', placeHandlers.getSingle);
 server.put('/place', placeHandlers.update);
 server.post('/place', placeHandlers.create);
 server.delete('/place/:id', placeHandlers.delete);
+
+server.use((error, request, response, next) => {
+	if (!(error instanceof ValueError)) {
+		next(error);
+	}
+
+	response.status(422).json({ message: error.message });
+});
+
+server.use((error, request, response, next) => {
+	if (!(error instanceof NotExistsError)) {
+		next(error);
+	}
+
+	response.status(404).json({ message: error.message });
+});
 
 server.use((error, request, response, next) => {
 	console.log(error);

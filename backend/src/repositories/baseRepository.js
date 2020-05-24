@@ -1,3 +1,6 @@
+const ValueError = require('../utils/valueError');
+const NotExistsError = require('../utils/notExistsError');
+
 module.exports = class BaseRepository {
     constructor({}) {
         this._db = {};
@@ -18,10 +21,10 @@ module.exports = class BaseRepository {
             throw new Error('Entity is required');
         }
         if(!entity.id) {
-            throw new Error('Entity must have an id');
+            throw new ValueError('Id is required');
         }
         if(!this._db[entity.id]) {
-            throw new Error('Entity doesn\'t exist');
+            throw new NotExistsError('Entity doesn\'t exist');
         }
 
         this._db[entity.id] = entity;
@@ -29,7 +32,7 @@ module.exports = class BaseRepository {
 
     delete({id}) {
         if(!id) {
-            throw new Error('Id is required');
+            throw new ValueError('Id is required');
         }
 
         delete this._db[id]

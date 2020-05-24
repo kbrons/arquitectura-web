@@ -1,10 +1,12 @@
+const ValueError = require('../utils/valueError');
+
 module.exports = class Todo {
     constructor({id, title, placeId, description, deadline, priority}) {
         if (!title) {
-            throw new Error('Title is required');
+            throw new ValueError('Title is required');
         }
         if (!placeId) {
-            throw new Error('Place is required');
+            throw new ValueError('Place is required');
         }
 
         this.id = id;
