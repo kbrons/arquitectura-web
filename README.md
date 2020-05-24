@@ -45,7 +45,7 @@ Objeto To Do en formato JSON
     title: string,
     placeId: int,
     description: string,
-    deadline: string (ISO UTC date),
+    deadline: int (epoch),
     priority: int
 }
 ```
