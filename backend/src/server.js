@@ -1,8 +1,12 @@
-const RequestRepository = require('./repository');
-const RequestService = require('./service');
-const RequestController = require('./controller');
+const PlaceRepository = require('./repositories/placeRepository');
+const PlaceService = require('./services/placeService');
+const PlaceController = require('./controllers/placeController');
+const TodoRepository = require('./repositories/TodoRepository');
+const TodoService = require('./services/TodoService');
+const TodoController = require('./controllers/TodoController');
 const express = require('express');
-const { buildHandlers } = require('./server/handlers');
+const { buildHandlers: buildBaseHandlers } = require('./handlers/baseHandlers');
+const { buildHandlers: buildTodoHandlers } = require('./handlers/todoHandlers');
 
 const envParams = {
 	host: process.env.DB_HOST,
@@ -17,19 +21,29 @@ if (notPresentEnvParams) {
 	throw new Error(`One or more required environment variables were not found. Please review your configuration for ${notPresentEnvParams}`);
 }
 
-const repository = new RequestRepository(envParams);
-const service = new RequestService({ repository, interval: parseInt(envParams.interval) });
-const controller = new RequestController({ service, secretKey: envParams.secretKey });
+const placeRepository = new PlaceRepository(envParams);
+const placeService = new PlaceService({ repository: placeRepository });
+const placeController = new PlaceController({ service: placeService });
+const todoRepository = new TodoRepository(envParams);
+const todoService = new TodoService({ repository: todoRepository });
+const todoController = new TodoController({ service: todoService });
 
-const { getKey, putKey } = buildHandlers({ controller });
+const placeHandlers = buildBaseHandlers({ controller: placeController });
+const todoHandlers = buildTodoHandlers({ controller: todoController })
 
 const server = express();
 
 server.use(express.json());
 
-server.get('/:key', getKey);
-
-server.put('/:key', putKey);
+server.get('/todo/:id', todoHandlers.getSingle);
+server.put('/todo', todoHandlers.update);
+server.post('/todo', todoHandlers.create);
+server.delete('/todo/:id', todoHandlers.delete);
+server.get('/place/:id/todos', todoHandlers.getByPlace);
+server.get('/place/:id', placeHandlers.getSingle);
+server.put('/place', placeHandlers.update);
+server.post('/place', placeHandlers.create);
+server.delete('/place/:id', placeHandlers.delete);
 
 server.use((error, request, response, next) => {
 	console.log(error);
