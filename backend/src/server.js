@@ -8,23 +8,11 @@ const express = require('express');
 const { buildHandlers: buildBaseHandlers } = require('./handlers/baseHandlers');
 const { buildHandlers: buildTodoHandlers } = require('./handlers/todoHandlers');
 
-const envParams = {
-	host: process.env.DB_HOST,
-	port: process.env.DB_PORT,
-	interval: process.env.INTERVAL,
-	secretKey: process.env.SECRET_KEY
-};
 
-const notPresentEnvParams = Object.keys(envParams).filter(envParam => !envParams[envParam]).join(', ');
-
-if (notPresentEnvParams) {
-	throw new Error(`One or more required environment variables were not found. Please review your configuration for ${notPresentEnvParams}`);
-}
-
-const placeRepository = new PlaceRepository(envParams);
+const placeRepository = new PlaceRepository();
 const placeService = new PlaceService({ repository: placeRepository });
 const placeController = new PlaceController({ service: placeService });
-const todoRepository = new TodoRepository(envParams);
+const todoRepository = new TodoRepository();
 const todoService = new TodoService({ repository: todoRepository });
 const todoController = new TodoController({ service: todoService });
 
