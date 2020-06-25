@@ -2,7 +2,7 @@ const ValueError = require('../utils/valueError');
 const NotExistsError = require('../utils/notExistsError');
 
 module.exports = class BaseRepository {
-    constructor({}) {
+    constructor() {
         this._db = {};
     }
 
