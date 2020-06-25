@@ -25,16 +25,16 @@ const server = express();
 
 server.use(express.json());
 
-server.get('/todo/:id', todoHandlers.getSingle);
-server.put('/todo', todoHandlers.update);
-server.post('/todo', todoHandlers.create);
-server.delete('/todo/:id', todoHandlers.delete);
-server.get('/place/:id/todos', todoHandlers.getByPlace);
-server.get('/place', placeHandlers.getAllPaginated);
-server.get('/place/:id', placeHandlers.getSingle);
-server.put('/place', placeHandlers.update);
-server.post('/place', placeHandlers.create);
-server.delete('/place/:id', placeHandlers.delete);
+server.get('/todos/:id', todoHandlers.getSingle);
+server.put('/todos', todoHandlers.update);
+server.post('/todos', todoHandlers.create);
+server.delete('/todos/:id', todoHandlers.delete);
+server.get('/places/:id/todos', todoHandlers.getByPlace);
+server.get('/places', placeHandlers.getAllPaginated);
+server.get('/places/:id', placeHandlers.getSingle);
+server.put('/places', placeHandlers.update);
+server.post('/places', placeHandlers.create);
+server.delete('/places/:id', placeHandlers.delete);
 
 server.use((error, request, response, next) => {
 	if (!(error instanceof ValueError)) {

@@ -23,11 +23,11 @@ Los lugares son completamente configurables, y ofrecemos para empezar "Casa" y "
 
 ### To Do
 
-Path: /todo
+Path: /todos
 
 #### GET
 
-`/todo/{id}`
+`/todos/{id}`
 
 ##### Parámetros
 
@@ -61,7 +61,7 @@ Objeto To Do en formato JSON
 
 #### POST
 
-`/todo`
+`/todos`
 
 ##### Parámetros
 
@@ -84,7 +84,7 @@ Objeto To Do en formato JSON
 
 #### PUT
 
-`/todo/{id}`
+`/todos/{id}`
 
 ##### Parámetros
 
@@ -109,7 +109,7 @@ Objeto To Do en formato JSON
 
 #### DELETE
 
-`/todo/{id}`
+`/todos/{id}`
 
 ##### Parámetros body
 
@@ -134,7 +134,7 @@ Path: /places
 
 #### GET
 
-`/place`
+`/places`
 
 ##### Parámetros
 
@@ -162,7 +162,7 @@ Lista de Places en formato JSON
 
 #### GET
 
-`/place/{id}`
+`/places/{id}`
 
 ##### Parámetros
 
@@ -192,7 +192,7 @@ Objeto lugar en formato JSON
 
 #### POST
 
-`/place`
+`/places`
 
 ##### Parámetros
 
@@ -211,7 +211,7 @@ Objeto lugar en formato JSON
 
 #### PUT
 
-`/place/{id}`
+`/places/{id}`
 
 ##### Parámetros
 
@@ -232,7 +232,7 @@ Objeto lugar en formato JSON
 
 #### DELETE
 
-`/place/{id}`
+`/places/{id}`
 
 ##### Parámetros body
 
@@ -253,7 +253,7 @@ Objeto lugar en formato JSON
 
 #### GET To Dos by Place
 
-`/place/{id}/todos`
+`/places/{id}/todos`
 
 ##### Parámetros
 
