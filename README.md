@@ -84,13 +84,13 @@ Objeto To Do en formato JSON
 
 #### PUT
 
-`/todos/{id}`
+`/todos`
 
 ##### Parámetros
 
 | Nombre        | Localización  | Descripción                                                                        | Requerido | Ejemplo               |
 | ------------- | -             | -----------------                                                                  | -         | -------------         |
-| id            | Path          | Id del To Do                                                                       | Sí        | 5                     |
+| id            | Body          | Id del To Do                                                                       | Sí        | 5                     |
 | title         | Body          | Título del To Do                                                                   | No        | "Comprar pan"         |
 | placeId       | Body          | Id del lugar                                                                       | No        | 7                     |
 | description   | Body          | Descripción del To Do                                                              | No        | "Pan lactal Bimbo"    |
@@ -211,13 +211,13 @@ Objeto lugar en formato JSON
 
 #### PUT
 
-`/places/{id}`
+`/places`
 
 ##### Parámetros
 
 | Nombre        | Localización  | Descripción                                                                        | Requerido | Ejemplo               |
 | ------------- | -             | -----------------                                                                  | -         | -------------         |
-| id            | Path          | Id del Lugar                                                                       | Sí        | 5                     |
+| id            | Body          | Id del Lugar                                                                       | Sí        | 5                     |
 | name          | Body          | Nombre del Lugar                                                                   | Sí        | "Casa"                |
 
 
