@@ -253,15 +253,15 @@ Objeto lugar en formato JSON
 
 #### GET To Dos by Place
 
-`/places/{id}/todos`
+`/places/{id}/todos?limit=X&offset=X`
 
 ##### Parámetros
 
 | Nombre        | Localización | Descripción                                    | Requerido     | Ejemplo       |
 | ------------- | -            | -----------------                              | -             | ------------- |
 | id            | Path         | Id del Lugar                                   | Sí            | 5             |
-| limit         | Path         | Cantidad de elementos a traer                  | No            | 20            |
-| offset        | Path         | Cantidad de elementos a partir del cual traer  | No            | 40            |
+| limit         | Query String | Cantidad de elementos a traer                  | No            | 20            |
+| offset        | Query String | Cantidad de elementos a partir del cual traer  | No            | 40            |
 
 ##### Retorna
 
@@ -279,6 +279,6 @@ Lista de To Dos en formato JSON
         }
     ],
     limit: int (same as requested),
-    offset: int (same as requested)
+    offset: int (el offset para el próximo request o el mismo si no hay más elementos)
 }
 ```

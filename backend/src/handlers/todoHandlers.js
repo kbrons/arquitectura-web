@@ -7,8 +7,13 @@ const buildHandlers = ({ controller }) => {
 
     const getByPlace = (request, response, next) => {
 		try {
-			const result = controller.getByPlace({ placeId: request.params.id });
-			response.status(200).send(JSON.stringify(result));
+			const params = { limit: Number(request.query.limit), offset: Number(request.query.offset), placeId: Number(request.params.id) };
+			const result = controller.getByPlace(params);
+			response.status(200).send(JSON.stringify({
+				todos: result.results,
+				limit: result.limit,
+				offset: result.nextOffset
+			}));
 		}
 		catch (error) {
 			next(error);

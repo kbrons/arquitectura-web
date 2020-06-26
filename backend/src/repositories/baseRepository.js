@@ -11,7 +11,7 @@ module.exports = class BaseRepository {
             throw new Error('Entity is required');
         }
         
-        const key = (Object.keys(this._db)[-1] || -1) + 1;
+        const key = Number(Object.keys(this._db).slice(-1).pop() || -1) + 1;
         entity.id = key;
         this._db[key] = entity;
     }

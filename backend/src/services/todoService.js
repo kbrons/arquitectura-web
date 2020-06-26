@@ -4,14 +4,14 @@ const NotExistsError = require('../utils/notExistsError');
 const ValueError = require('../utils/valueError');
 
 module.exports = class TodoService extends BaseService {
-    constructor({ repository, placeService }) {
+    constructor({ repository, placeRepository }) {
         super({ repository, entityClass: Todo });
-        this._placeService = placeService;
+        this._placeRepository  = placeRepository;
     }
 
     create({ params }) {
         try {
-            const place = this._placeService.getSingle({ id: params.placeId });
+            const place = this._placeRepository.getSingle({ id: params.placeId });
 
             if (place) {
                 super.create({ params });
@@ -25,6 +25,16 @@ module.exports = class TodoService extends BaseService {
     }
 
     getByPlace({ placeId, offset, limit }) {
-        return this._repository.getByPlace({ placeId, offset, limit });
+        if(!placeId && placeId !== 0) {
+            throw new ValueError('PlaceId is required');
+        }
+        
+        return this._repository.queryPaginated({
+            entity: {
+                placeId: placeId
+            },
+            offset,
+            limit
+        });
     }
 }
