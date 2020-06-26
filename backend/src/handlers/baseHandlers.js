@@ -1,3 +1,5 @@
+const ValueError = require('../utils/valueError');
+
 const buildHandlers = ({ controller }) => {
 	if (!controller) {
 		throw new Error('The controller is required');
@@ -15,8 +17,13 @@ const buildHandlers = ({ controller }) => {
 
 	const getAllPaginated = (request, response, next) => {
 		try {
-			const result = controller.getAllPaginated({ limit: request.params.limit, offset: request.params.offset });
-			response.status(200).send(JSON.stringify(result));
+			const params = { limit: Number(request.query.limit), offset: Number(request.query.offset) };
+			const result = controller.getAllPaginated(params);
+			response.status(200).send(JSON.stringify({
+				places: result.results,
+				limit: result.limit,
+				offset: result.nextOffset
+			}));
 		}
 		catch (error) {
 			next(error);

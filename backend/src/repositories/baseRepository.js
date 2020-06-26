@@ -20,7 +20,7 @@ module.exports = class BaseRepository {
         if(!entity) {
             throw new Error('Entity is required');
         }
-        if(!entity.id) {
+        if(!entity.id && entity.id !== 0) {
             throw new ValueError('Id is required');
         }
         if(!this._db[entity.id]) {
@@ -31,7 +31,7 @@ module.exports = class BaseRepository {
     }
 
     delete({id}) {
-        if(!id) {
+        if(!id && id !== 0) {
             throw new ValueError('Id is required');
         }
 
@@ -39,7 +39,7 @@ module.exports = class BaseRepository {
     }
 
     getSingle({id}) {
-        if(!id) {
+        if(!id && id !== 0) {
             throw new ValueError('Id is required');
         }
 
@@ -52,9 +52,21 @@ module.exports = class BaseRepository {
     }
 
     queryPaginated({entity = {}, offset = 0, limit = 20}) {
-        return Object.values(this._db)
+        if(!offset) {
+            offset = 0;
+        }
+        if(!limit) {
+            limit = 20;
+        }
+        const nextOffset = offset + limit;
+        const results = Object.values(this._db)
                      .filter((dbEntity) => Object.keys(entity)
                                                  .every((key) => entity[key] === dbEntity[key]))
-                     .slice(offset, offset + limit);
+                     .slice(offset, nextOffset);
+        return {
+            results,
+            nextOffset: results.length === limit ? nextOffset : offset,
+            limit
+        }
     }
 }

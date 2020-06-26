@@ -15,7 +15,7 @@ const placeRepository = new PlaceRepository({});
 const placeService = new PlaceService({ repository: placeRepository });
 const placeController = new PlaceController({ service: placeService });
 const todoRepository = new TodoRepository({});
-const todoService = new TodoService({ repository: todoRepository });
+const todoService = new TodoService({ repository: todoRepository, placeService });
 const todoController = new TodoController({ service: todoService });
 
 const placeHandlers = buildBaseHandlers({ controller: placeController });
