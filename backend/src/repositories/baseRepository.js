@@ -39,7 +39,16 @@ module.exports = class BaseRepository {
     }
 
     getSingle({id}) {
-        return this._db[id];
+        if(!id) {
+            throw new ValueError('Id is required');
+        }
+
+        const entity = this._db[id];
+        if(!entity) {
+            throw new NotExistsError('Entity doesn\'t exist');
+        }
+        
+        return entity;
     }
 
     queryPaginated({entity = {}, offset = 0, limit = 20}) {

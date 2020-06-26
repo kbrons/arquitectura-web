@@ -5,7 +5,7 @@ module.exports = class Todo {
         if (!title) {
             throw new ValueError('Title is required');
         }
-        if (!placeId) {
+        if (!placeId && placeId != 0) {
             throw new ValueError('Place is required');
         }
 

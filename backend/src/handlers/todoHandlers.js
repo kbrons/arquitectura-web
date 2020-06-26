@@ -7,7 +7,7 @@ const buildHandlers = ({ controller }) => {
 
     const getByPlace = (request, response, next) => {
 		try {
-			const result = controller.getByPlace({ placeId: request.params.placeId });
+			const result = controller.getByPlace({ placeId: request.params.id });
 			response.status(200).send(JSON.stringify(result));
 		}
 		catch (error) {
