@@ -1,7 +1,7 @@
 {
-  "name": "request",
+  "name": "arquitectura-web-backend",
   "version": "1.0.0",
-  "description": "request microservice",
+  "description": "arquitectura-web-backend",
   "main": "index.js",
   "scripts": {
     "start": "node ./src/server.js"
